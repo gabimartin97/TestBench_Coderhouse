@@ -37,8 +37,8 @@ public class Movimiento : MonoBehaviour
             direccion += Vector3.back;
         }
        
-        transform.Translate(direccion.normalized * Time.deltaTime * speed);
-        
+       // transform.Translate(direccion.normalized * Time.deltaTime * speed);
+        transform.position += direccion * Time.deltaTime * speed;
 
               
         
@@ -46,27 +46,17 @@ public class Movimiento : MonoBehaviour
 
     public void RotatePlayer()
     {
-        float anguloRotacion = 0f;
-        Vector3 mousePosition = Input.mousePosition;
-        Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, );
-        Vector3 direccion = screenCenter - mousePosition;
-
-        Debug.Log("Mouse: " + mousePosition);
-        Debug.Log("Centro: " + screenCenter);
-        Debug.Log("Direccion: " + direccion);
-
-        /*
-        Obtengo el valor del input del cursor (Que en Mouse X va de -1(izquierda) a 1(derecha))
-        en función de que tan a la izquierda o derecha se mueve el mouse.
-        */
-
-        //cameraAxisX += Input.GetAxis("Horizontal");
-        //cameraAxisZ += Input.GetAxis("Vertical");
-        // Forma para rotar "inmediatamente" hacia una nueva rotación creada con el método Euler (a partir de los ejes x,y,z)
-        //transform.rotation = Quaternion.Euler(0,cameraAxisX * 0.1f, 0);
-        // Forma para rotar "gradualmente" hacia una nueva rotación con Lerp.
         
-        //Quaternion newRotation = Quaternion.Euler(0, cameraAxisX, 0);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 2.5f * Time.deltaTime);
+        
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y);
+        Vector3 screenCenter = new Vector3(Screen.width / 2, 0, Screen.height / 2);
+        Vector3 direccion =   mousePosition - screenCenter;
+        transform.LookAt(direccion);
+        //Debug.Log("Mouse: " + mousePosition);
+        //Debug.Log("Centro: " + screenCenter);
+        //Debug.Log("Direccion: " + direccion);
+        
+
+        
     }
 }
