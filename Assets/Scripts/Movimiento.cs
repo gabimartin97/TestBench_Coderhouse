@@ -5,9 +5,8 @@ using UnityEngine;
 public class Movimiento : MonoBehaviour
 {
     [SerializeField]  float speed = 5;
-    [SerializeField] float rotationSpeed = 50;
-    float cameraAxisX = 0f;
-    float cameraAxisZ = 0f;
+   
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,17 +45,23 @@ public class Movimiento : MonoBehaviour
 
     public void RotatePlayer()
     {
-        
-        
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y);
         Vector3 screenCenter = new Vector3(Screen.width / 2, 0, Screen.height / 2);
-        Vector3 direccion =   mousePosition - screenCenter;
+        Vector3 cameraPosition = GameObject.Find("Superior Camera").transform.position;
+        Vector3 playerPosition = GameObject.Find("Player").transform.position;
+        Vector3 playerDefasaje = playerPosition - cameraPosition;
+
+        playerDefasaje = new Vector3(playerDefasaje.x, 0, playerDefasaje.z);
+
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x , 0, Input.mousePosition.y );
+        
+         Vector3 direccion =   mousePosition - screenCenter - playerDefasaje;
+        //Vector3 direccion = mousePosition - cameraPosition;
         transform.LookAt(direccion);
         //Debug.Log("Mouse: " + mousePosition);
         //Debug.Log("Centro: " + screenCenter);
         //Debug.Log("Direccion: " + direccion);
-        
+        Debug.Log("Defasaje: " + playerDefasaje);
+        Debug.Log("Direccion: " + direccion);
 
-        
     }
 }

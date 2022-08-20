@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5876166285811797289}
   - component: {fileID: 2795156632471073762}
-  - component: {fileID: 4068917772713231377}
+  - component: {fileID: 828400205}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rotationSpeed: 50
---- !u!114 &4068917772713231377
+--- !u!114 &828400205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,11 +188,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9101824646865785171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1414bcc661e7f743a3550342c6eacfc, type: 3}
+  m_Script: {fileID: 11500000, guid: cfff80f467f235b41a2c3e0d74b754ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 50
+  bullet: {fileID: 2552734773647534685, guid: c9dff4097d9ea6243bce52467ab1842c, type: 3}
 --- !u!1001 &1903680104736379877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,7 +201,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5188114531961742890, guid: e3c607791ef7b324d94f51f738add89f, type: 3}
       propertyPath: m_Name
-      value: Weapon1
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 5527097623794646160, guid: e3c607791ef7b324d94f51f738add89f, type: 3}
       propertyPath: m_RootOrder
