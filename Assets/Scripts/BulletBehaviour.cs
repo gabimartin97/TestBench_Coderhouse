@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    [SerializeField] float bulletSpeed = 15f;
+    [SerializeField] float speed = 15f;
+    [SerializeField] float damage = 25f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +16,14 @@ public class BulletBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime * (-1));
+        transform.Translate(Vector3.forward * speed * Time.deltaTime * (-1));
     }
-    private void Destroy()
+    public void Destroy()
     {
         Destroy(gameObject);
+    }
+    public float GetDamage()
+    {
+        return damage;
     }
 }
