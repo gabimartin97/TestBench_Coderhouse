@@ -60,8 +60,8 @@ public class Movimiento : MonoBehaviour
         //Debug.Log("Mouse: " + mousePosition);
         //Debug.Log("Centro: " + screenCenter);
         //Debug.Log("Direccion: " + direccion);
-        Debug.Log("Defasaje: " + playerDefasaje);
-        Debug.Log("Direccion: " + direccion);
+        //Debug.Log("Defasaje: " + playerDefasaje);
+        //Debug.Log("Direccion: " + direccion);
 
     }
 }
