@@ -16,7 +16,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameObject weapon = GameObject.Find("Weapon");
+            GameObject weapon = GameObject.Find("Weapon2");
             Vector3 weaponPosition = weapon.transform.position;
             Quaternion rotation = weapon.transform.rotation;
             Instantiate(bullet, weaponPosition, rotation);
