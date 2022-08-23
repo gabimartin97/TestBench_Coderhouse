@@ -5,8 +5,8 @@ using UnityEngine;
 public class Movimiento : MonoBehaviour
 {
     [SerializeField]  float speed = 5;
-   
-    
+    [SerializeField] Animator playerAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +38,14 @@ public class Movimiento : MonoBehaviour
        
        // transform.Translate(direccion.normalized * Time.deltaTime * speed);
         transform.position += direccion * Time.deltaTime * speed;
-
+        if(direccion != Vector3.zero)
+        {
+            playerAnimator.SetBool("isRunning", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isRunning", false);
+        }
               
         
     }
