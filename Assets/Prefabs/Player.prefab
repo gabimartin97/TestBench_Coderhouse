@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2552734773647534685, guid: c9dff4097d9ea6243bce52467ab1842c, type: 3}
+  gunFlash: {fileID: 2206798423249386420, guid: 879b7b7bab0bc914ea696fa9524a67c5, type: 3}
 --- !u!136 &3667168186050504219
 CapsuleCollider:
   m_ObjectHideFlags: 0
