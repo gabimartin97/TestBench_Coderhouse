@@ -13,6 +13,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] EnemyType enemyType;
     Transform target;
     [SerializeField] float speed = 5f;
+    [SerializeField] Transform shootPoint;
+    [SerializeField][Range(2f, 20f)] float rayDistance = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,7 @@ public class EnemyMovement : MonoBehaviour
                 if (distance.magnitude >= 2f)
                 {
                     Vector3 targetPosition = target.position;
-                    transform.LookAt(targetPosition );
+                    transform.LookAt(targetPosition);
                     transform.Translate(speed * Time.deltaTime * Vector3.forward);
                     //transform.position += Vector3.forward * Time.deltaTime * speed;
 
@@ -44,5 +46,28 @@ public class EnemyMovement : MonoBehaviour
 
         }
 
+    }
+    void FixedUpdate()
+    {
+        LookRayCast();
+
+    }
+    void LookRayCast()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(shootPoint.position, shootPoint.TransformDirection(Vector3.forward), out hit, rayDistance))
+        {
+            if (hit.transform.CompareTag("Player"))
+            {
+                Debug.Log("Mirando a Player");
+            }
+        }
+
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 direction = shootPoint.TransformDirection(Vector3.forward) * rayDistance;
+        Gizmos.DrawRay(shootPoint.position, direction);
     }
 }

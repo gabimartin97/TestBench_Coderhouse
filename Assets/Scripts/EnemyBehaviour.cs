@@ -8,7 +8,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -17,6 +17,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+            GameManager.score++;
+            Debug.Log(GameManager.score);
         }
     }
 
@@ -27,6 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             health -= collidedWith.GetComponent<BulletBehaviour>().GetDamage();
             collidedWith.GetComponent<BulletBehaviour>().Destroy();
+
         }
     }
 }
