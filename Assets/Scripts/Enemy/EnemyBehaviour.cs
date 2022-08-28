@@ -22,6 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+       /*
         GameObject collidedWith = collision.gameObject;
         if (collidedWith.tag == "Bullet")
         {
@@ -29,5 +30,11 @@ public class EnemyBehaviour : MonoBehaviour
             collidedWith.GetComponent<BulletBehaviour>().Destroy();
 
         }
+       */
+    }
+
+    public void RecieveDamage(float damage)
+    {
+        health -= damage;
     }
 }

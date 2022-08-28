@@ -3,7 +3,6 @@ using UnityEngine;
 public class EnemyMovement_Force : MonoBehaviour
 {
     [SerializeField] EnemyType enemyType;
-    [SerializeField] float speed = 5f;
     [SerializeField] Transform shootPoint;
     [SerializeField][Range(2f, 20f)] float rayDistance = 50f;
     [SerializeField] float moveForce = 1000f;

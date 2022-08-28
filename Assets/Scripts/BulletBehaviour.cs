@@ -24,4 +24,15 @@ public class BulletBehaviour : MonoBehaviour
     {
         return damage;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.TransformVector(Vector3.forward) * -1000f, ForceMode.Impulse);
+            collision.gameObject.GetComponent<EnemyBehaviour>().RecieveDamage(damage);
+        }
+        
+        Destroy();
+    }
 }
