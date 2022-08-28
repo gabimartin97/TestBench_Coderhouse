@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletBehaviour : MonoBehaviour
@@ -10,7 +8,7 @@ public class BulletBehaviour : MonoBehaviour
     void Start()
     {
         Invoke("Destroy", 3f);
-        
+
     }
 
     // Update is called once per frame
