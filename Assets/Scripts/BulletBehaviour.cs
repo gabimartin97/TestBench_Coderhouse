@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.AI;
 public class BulletBehaviour : MonoBehaviour
 {
     [SerializeField] float speed = 25f;
@@ -29,7 +29,9 @@ public class BulletBehaviour : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(transform.TransformVector(Vector3.forward) * -1000f, ForceMode.Impulse);
+            Transform collisionTransform = collision.transform;
+            
+            collision.gameObject.GetComponent<NavMeshAgent>().Warp(collisionTransform.position + collisionTransform.TransformDirection(Vector3.back)*0.5f);
             collision.gameObject.GetComponent<EnemyBehaviour>().RecieveDamage(damage);
         }
         

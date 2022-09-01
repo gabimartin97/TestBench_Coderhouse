@@ -77,6 +77,7 @@ public class PlayerAim_Move : MonoBehaviour
         {
             direccion += Vector3.back;
         }
+        direccion.Normalize();
         transform.position += direccion * Time.deltaTime * speed;
     }
 

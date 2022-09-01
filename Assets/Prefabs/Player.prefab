@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5876166285811797289}
   - component: {fileID: 3667168186050504219}
   - component: {fileID: 1625676416049698673}
-  - component: {fileID: 3201338020194080534}
   - component: {fileID: 309065865}
+  - component: {fileID: 4056199319145914379}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -61,30 +61,11 @@ Rigidbody:
   m_Mass: 70
   m_Drag: 1
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &3201338020194080534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9101824646865785171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47bca690ed0f0754bb8a05ddf6726ac0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
-  playerAnimator: {fileID: 7129264891018275047}
-  moveForce: 15
-  rotateForce: 500
-  stopCoeficient: 0.9
 --- !u!114 &309065865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,6 +80,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 2552734773647534685, guid: c9dff4097d9ea6243bce52467ab1842c, type: 3}
   gunFlash: {fileID: 2206798423249386420, guid: 879b7b7bab0bc914ea696fa9524a67c5, type: 3}
+--- !u!114 &4056199319145914379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9101824646865785171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f3d83315d70d84caebf780bba108e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
+  playerAnimator: {fileID: 7129264891018275047}
+  speed: 5
 --- !u!1001 &5885090447247709801
 PrefabInstance:
   m_ObjectHideFlags: 0
