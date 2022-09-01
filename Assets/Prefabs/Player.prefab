@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 309065865}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +83,8 @@ MonoBehaviour:
     m_Bits: 1
   playerAnimator: {fileID: 7129264891018275047}
   moveForce: 15
+  rotateForce: 500
+  stopCoeficient: 0.9
 --- !u!114 &309065865
 MonoBehaviour:
   m_ObjectHideFlags: 0
