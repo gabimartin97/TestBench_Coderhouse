@@ -16,11 +16,15 @@ public class EnemyAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = target.transform.position - transform.position;
-        if(direction.magnitude >= 2f)
+        if(! GameManager.IsGameOver)
         {
-            navMeshAgent.SetDestination(target.transform.position);
+            Vector3 direction = target.transform.position - transform.position;
+            if (direction.magnitude >= 2f)
+            {
+                navMeshAgent.SetDestination(target.transform.position);
+            }
         }
+        
         
     }
 }
