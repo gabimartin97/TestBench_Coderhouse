@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnBehaviour : MonoBehaviour
 
 {
     [SerializeField] GameObject Spawned;
