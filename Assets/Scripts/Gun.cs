@@ -9,20 +9,29 @@ public class Gun : MonoBehaviour
     //bullet 
     [SerializeField] GameObject bullet;
     //bullet force
-    [SerializeField] float shootForce = 25f; 
-    [SerializeField] float upwardForce;
+    [SerializeField] float shootForce = 40f; 
+    
     //Gun stats
     [SerializeField] float timeBetweenShooting = 0.1f; 
     [SerializeField] float reloadTime = 2f;
     [SerializeField] float timeBetweenShots=0.1f;
-
+    [SerializeField] float spread = 0.1f;
     [SerializeField] int magazineSize = 24;
+    [SerializeField] int bulletsPerTap = 1;
     [SerializeField] bool allowButtonHold = true;
-    [SerializeField] TextMeshProUGUI ammunitionDisplay;
+    
     int bulletsLeft, bulletsShot;
 
-    public Transform attackPoint;
+    //Reference
+    [SerializeField] Transform attackPoint;
 
+    //Recoil
+    [SerializeField] Rigidbody playerRb;
+    [SerializeField] float recoilForce = 40f;
+
+    //Graphics
+    public GameObject muzzleFlash;
+    [SerializeField] TextMeshProUGUI ammunitionDisplay;
     //bools
     bool shooting, readyToShoot, reloading;
     //bug fixing :D
@@ -33,18 +42,14 @@ public class Gun : MonoBehaviour
         bulletsLeft = magazineSize;
         readyToShoot = true;
     }
-    void Start()
-    {
-        
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
         MyInput();
         //Set ammo display, if it exists :D
         if (ammunitionDisplay != null)
-            ammunitionDisplay.SetText(bulletsLeft  + " / " + magazineSize);
+            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
     }
 
     private void MyInput()
@@ -76,20 +81,25 @@ public class Gun : MonoBehaviour
 
         //Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = attackPoint.TransformDirection(Vector3.forward);
-               
-        
+
+        //Calculate spread
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        //Calculate new direction with spread
+        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); //Just add spread to last direction
         //Instantiate bullet/projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity); //store instantiated bullet in currentBullet
         //Rotate bullet to shoot direction
-        currentBullet.transform.forward = directionWithoutSpread.normalized;
+        currentBullet.transform.forward = directionWithSpread.normalized;
 
         //Add forces to bullet
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
         //Instantiate muzzle flash, if you have one
-        //if (muzzleFlash != null)
-            //Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        if (muzzleFlash != null)
+           Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         bulletsLeft--;
         bulletsShot++;
@@ -99,9 +109,13 @@ public class Gun : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
-                        
+            //Add recoil to player (should only be called once)
+            playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
         }
-                
+        //if more than one bulletsPerTap make sure to repeat shoot function
+        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+            Invoke("Shoot", timeBetweenShots);
+
     }
     private void ResetShot()
     {
