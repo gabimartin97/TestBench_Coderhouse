@@ -36,6 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Weapon"))
         {
+            Destroy(Weapon); //Destruye el arma que tiene en la mano. Mejorar
             Weapon = collision.gameObject;
             Weapon.transform.SetParent(WeaponHand);
             Weapon.transform.localPosition = Vector3.zero;

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class BulletBehaviour : MonoBehaviour
 {
-    [SerializeField] float speed = 25f;
+    
     [SerializeField] float damage = 25f;
     // Start is called before the first frame update
     void Start()
@@ -27,14 +27,25 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+
+        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Player"))
         {
-            Transform collisionTransform = collision.transform;
-            
-            collision.gameObject.GetComponent<NavMeshAgent>().Warp(collisionTransform.position + collisionTransform.TransformDirection(Vector3.back)*0.5f);
-            collision.gameObject.GetComponent<EnemyBehaviour>().RecieveDamage(damage);
+            return;
         }
+        else
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                Transform collisionTransform = collision.transform;
+
+                collision.gameObject.GetComponent<NavMeshAgent>().Warp(collisionTransform.position + collisionTransform.TransformDirection(Vector3.back) * 0.5f);
+                collision.gameObject.GetComponent<EnemyBehaviour>().RecieveDamage(damage);
+            }
+
+
+            Destroy();
+        }
+
         
-        Destroy();
     }
 }

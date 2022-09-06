@@ -6,43 +6,27 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
+    [SerializeField] protected FireGunData data;
     //bullet 
     [SerializeField] GameObject bullet;
-    //bullet force
-    [SerializeField] float shootForce = 40f; 
-    
-    //Gun stats
-    [SerializeField] float timeBetweenShooting = 0.1f; 
-    [SerializeField] float reloadTime = 2f;
-    [SerializeField] float timeBetweenShots=0.1f;
-    [SerializeField] float spread = 0.1f;
-    [SerializeField] int magazineSize = 24;
-    [SerializeField] int bulletsPerTap = 1;
-    [SerializeField] bool allowButtonHold = true;
-    
-    int bulletsLeft, bulletsShot;
-
-    //Reference
-    private Transform attackPoint;
-
-    //Recoil
-     private Rigidbody playerRb;
-    [SerializeField] float recoilForce = 40f;
-
     //Graphics
-    public GameObject muzzleFlash;
+    [SerializeField] GameObject muzzleFlash;
+
+    int bulletsLeft, bulletsShot;
+    private Transform attackPoint;
+    private Rigidbody playerRb;
     private TextMeshProUGUI ammunitionDisplay;
     //bools
     bool shooting, readyToShoot, reloading;
     //bug fixing :D
-    public bool allowInvoke = true;
+    bool allowInvoke = true;
 
     public Rigidbody PlayerRb { get => playerRb; set => playerRb = value; }
 
     private void Awake()
     {
         //make sure magazine is full
-        bulletsLeft = magazineSize;
+        bulletsLeft = data.magazineSize;
         readyToShoot = true;
     }
     private void Start()
@@ -57,17 +41,17 @@ public class Gun : MonoBehaviour
         MyInput();
         //Set ammo display, if it exists :D
         if (ammunitionDisplay != null)
-            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+            ammunitionDisplay.SetText(bulletsLeft / data.bulletsPerTap + " / " + data.magazineSize / data.bulletsPerTap);
     }
 
     private void MyInput()
     {
         //Check if allowed to hold down button and take corresponding input
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+        if (data.allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         //Reloading 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < data.magazineSize && !reloading) Reload();
         //Reload automatically when trying to shoot without ammo
         if (readyToShoot && shooting && !reloading && bulletsLeft <= 0) Reload();
 
@@ -91,8 +75,8 @@ public class Gun : MonoBehaviour
         Vector3 directionWithoutSpread = attackPoint.TransformDirection(Vector3.forward);
 
         //Calculate spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
+        float x = Random.Range(-data.spread, data.spread);
+        float y = Random.Range(-data.spread, data.spread);
 
         //Calculate new direction with spread
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0); //Just add spread to last direction
@@ -102,7 +86,7 @@ public class Gun : MonoBehaviour
         currentBullet.transform.forward = directionWithSpread.normalized;
 
         //Add forces to bullet
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * data.shootForce, ForceMode.Impulse);
         //currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
         //Instantiate muzzle flash, if you have one
@@ -115,14 +99,14 @@ public class Gun : MonoBehaviour
         //Invoke resetShot function (if not already invoked), with your timeBetweenShooting
         if (allowInvoke)
         {
-            Invoke("ResetShot", timeBetweenShooting);
+            Invoke("ResetShot", data.timeBetweenShooting);
             allowInvoke = false;
             //Add recoil to player (should only be called once)
-            PlayerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
+            PlayerRb.AddForce(-directionWithSpread.normalized * data.recoilForce, ForceMode.Impulse);
         }
         //if more than one bulletsPerTap make sure to repeat shoot function
-        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
-            Invoke("Shoot", timeBetweenShots);
+        if (bulletsShot < data.bulletsPerTap && bulletsLeft > 0)
+            Invoke("Shoot", data.timeBetweenShots);
 
     }
     private void ResetShot()
@@ -135,12 +119,12 @@ public class Gun : MonoBehaviour
     private void Reload()
     {
         reloading = true;
-        Invoke("ReloadFinished", reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
+        Invoke("ReloadFinished", data.reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
     }
     private void ReloadFinished()
     {
         //Fill magazine
-        bulletsLeft = magazineSize;
+        bulletsLeft = data.magazineSize;
         reloading = false;
     }
 }
