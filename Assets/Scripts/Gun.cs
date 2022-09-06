@@ -23,26 +23,34 @@ public class Gun : MonoBehaviour
     int bulletsLeft, bulletsShot;
 
     //Reference
-    [SerializeField] Transform attackPoint;
+    private Transform attackPoint;
 
     //Recoil
-    [SerializeField] Rigidbody playerRb;
+     private Rigidbody playerRb;
     [SerializeField] float recoilForce = 40f;
 
     //Graphics
     public GameObject muzzleFlash;
-    [SerializeField] TextMeshProUGUI ammunitionDisplay;
+    private TextMeshProUGUI ammunitionDisplay;
     //bools
     bool shooting, readyToShoot, reloading;
     //bug fixing :D
     public bool allowInvoke = true;
+
+    public Rigidbody PlayerRb { get => playerRb; set => playerRb = value; }
+
     private void Awake()
     {
         //make sure magazine is full
         bulletsLeft = magazineSize;
         readyToShoot = true;
     }
-    
+    private void Start()
+    {
+        ammunitionDisplay = GameObject.Find("AmmoText").GetComponent<TextMeshProUGUI>();
+        attackPoint = transform.Find("Nozzle");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -110,7 +118,7 @@ public class Gun : MonoBehaviour
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
             //Add recoil to player (should only be called once)
-            playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
+            PlayerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
         }
         //if more than one bulletsPerTap make sure to repeat shoot function
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)

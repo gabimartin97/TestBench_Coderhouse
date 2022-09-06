@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerBehaviour : MonoBehaviour
 {
     private float health = 100f;
-    
+    [SerializeField] GameObject Weapon;
+    [SerializeField] Transform WeaponHand;
 
     public float Health { get => health; set => health = value; }
 
     // Start is called before the first frame update
     void Start()
     {
+        
         
     }
 
@@ -30,4 +32,17 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("Vida restante: " + health);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Weapon"))
+        {
+            Weapon = collision.gameObject;
+            Weapon.transform.SetParent(WeaponHand);
+            Weapon.transform.localPosition = Vector3.zero;
+            Weapon.transform.localRotation = Quaternion.identity;
+            Weapon.GetComponent<Gun>().enabled = true;
+            Weapon.GetComponent<Gun>().PlayerRb = GetComponent<Rigidbody>();
+
+        }
+    }
 }

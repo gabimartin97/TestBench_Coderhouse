@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116504312072272036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: -0.25}
+  m_LocalPosition: {x: 0, y: 0.005, z: -0.028}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2636118904832798498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.08, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0.144, z: 0.322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,9 +72,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3579694478557865823}
   - component: {fileID: 3002884698674363048}
+  - component: {fileID: 1269636385279351070}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,21 +106,37 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4068459772252797011}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6293c09dc2baf3a4c88c956e0a8cfae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2552734773647534685, guid: c9dff4097d9ea6243bce52467ab1842c, type: 3}
-  shootForce: 10
-  upwardForce: 0
+  shootForce: 40
   timeBetweenShooting: 0.1
   reloadTime: 2
   timeBetweenShots: 0.1
+  spread: 0.1
   magazineSize: 24
+  bulletsPerTap: 1
   allowButtonHold: 1
-  attackPoint: {fileID: 4437780782365663986}
+  attackPoint: {fileID: 3337945118609049435}
+  recoilForce: 40
+  muzzleFlash: {fileID: 2206798423249386420, guid: 879b7b7bab0bc914ea696fa9524a67c5, type: 3}
   allowInvoke: 1
+--- !u!65 &1269636385279351070
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4068459772252797011}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.33990395, y: 0.4094557, z: 1.1760787}
+  m_Center: {x: -0.33004802, y: 0.023531869, z: 0.0880394}
 --- !u!1 &4252984302495939680
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3337945118609049435}
   m_Layer: 0
-  m_Name: Noozle
+  m_Name: Nozzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4252984302495939680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.08, z: 0.4}
+  m_LocalPosition: {x: 0, y: 0.129, z: 0.535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -172,11 +189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1755851225511784379, guid: 234f5a6f02b7ffc41bed30cb56869839, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 1755851225511784379, guid: 234f5a6f02b7ffc41bed30cb56869839, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 1755851225511784379, guid: 234f5a6f02b7ffc41bed30cb56869839, type: 3}
       propertyPath: m_LocalRotation.w
