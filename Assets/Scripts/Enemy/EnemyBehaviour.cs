@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] float health = 100f;
-    [SerializeField] float damage = 10f;
-    [SerializeField] float damageCooldown = 0.5f;
+    [SerializeField] protected float health = 100f;
+    [SerializeField] protected float damage = 10f;
+    [SerializeField] protected float damageCooldown = 0.5f;
     // Start is called before the first frame update
-    private bool damageInCooldown = false;
-    
-    private float damageCooldownTimer = 0f;
+    protected bool damageInCooldown = false;
+
+    protected float damageCooldownTimer = 0f;
     void Start()
     {
 
@@ -17,23 +17,16 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        Attack();
         if (health <= 0)
         {
             Destroy(gameObject);
             GameManager.Score++;
-            
+
         }
 
-        if (damageInCooldown)
-        {
-            damageCooldownTimer += Time.deltaTime;
-            if (damageCooldownTimer >= damageCooldown)
-            {
-                damageInCooldown = false;
-                damageCooldownTimer = 0f;
-            }
-        }
-        
+
     }
 
     private void OnCollisionStay(Collision collision)
@@ -49,8 +42,21 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void RecieveDamage(float damage)
+    public virtual void RecieveDamage(float damage)
     {
         health -= damage;
+    }
+
+    protected  void Attack()
+    {
+        if (damageInCooldown)
+        {
+            damageCooldownTimer += Time.deltaTime;
+            if (damageCooldownTimer >= damageCooldown)
+            {
+                damageInCooldown = false;
+                damageCooldownTimer = 0f;
+            }
+        }
     }
 }
