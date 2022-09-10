@@ -27,6 +27,16 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    
-    
+    private void Start()
+    {
+        PlayerBehaviour.OnDead += OnPLayerDeadHandler;
+    }
+
+    private void OnPLayerDeadHandler()
+    {
+        isGameOver = true;
+
+    }
+
+
 }

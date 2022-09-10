@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    private float health = 100f;
+    
     [SerializeField] GameObject Weapon;
     [SerializeField] Transform WeaponHand;
 
+    static  public event Action OnDead;
+    static public event Action<float,float> OnHealthChange;
+
+    private float health = 100f;
+    private float maxHealth = 100f;
     public float Health { get => health; set => health = value; }
 
-    // Start is called before the first frame update
+   
     void Start()
     {
         
@@ -22,13 +28,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (health <= 0f)
         {
-            GameManager.IsGameOver = true;
+            OnDead.Invoke();
             gameObject.SetActive(false);
         }
     }
     public void RecieveDamage(float damage)
     {
         health -= damage;
+        OnHealthChange.Invoke(health, maxHealth);
         Debug.Log("Vida restante: " + health);
     }
 
