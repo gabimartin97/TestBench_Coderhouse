@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         PlayerBehaviour.OnDead += OnPLayerDeadHandler;
+        EnemyBehaviour.OnDead += AddScore;
     }
 
     private void OnPLayerDeadHandler()
@@ -37,6 +38,13 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
 
     }
+
+    private void AddScore(int points)
+    {
+        score += points;
+    }
+
+
 
 
 }

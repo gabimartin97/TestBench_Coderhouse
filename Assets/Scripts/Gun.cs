@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class Gun : MonoBehaviour
 {
+    public UnityEvent onPickedUp;
+
     [SerializeField] protected FireGunData data;
     //bullet 
     [SerializeField] GameObject bullet;
@@ -127,4 +130,11 @@ public class Gun : MonoBehaviour
         bulletsLeft = data.magazineSize;
         reloading = false;
     }
+
+    public void PickUp()
+    {
+        onPickedUp.Invoke();
+    }
+
+
 }

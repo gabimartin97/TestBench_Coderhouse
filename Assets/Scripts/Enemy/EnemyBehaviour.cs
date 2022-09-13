@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -7,8 +8,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] protected float damageCooldown = 0.5f;
     // Start is called before the first frame update
     protected bool damageInCooldown = false;
-
     protected float damageCooldownTimer = 0f;
+
+    static public event Action<int> OnDead;
     void Start()
     {
 
@@ -22,7 +24,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            GameManager.Score++;
+            OnDead.Invoke(1);
 
         }
 

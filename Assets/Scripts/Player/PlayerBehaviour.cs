@@ -50,6 +50,7 @@ public class PlayerBehaviour : MonoBehaviour
             Weapon.transform.localRotation = Quaternion.identity;
             Weapon.GetComponent<Gun>().enabled = true;
             Weapon.GetComponent<Gun>().PlayerRb = GetComponent<Rigidbody>();
+            Weapon.GetComponent<Gun>().PickUp();
 
         }
     }
